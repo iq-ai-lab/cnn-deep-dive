@@ -20,10 +20,10 @@ LeCun 1989의 역전파 CNN · LeCun 1998의 LeNet · Krizhevsky 2012 AlexNet의
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.1-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![timm](https://img.shields.io/badge/timm-0.9.10-4B8BBE?style=flat-square)](https://github.com/huggingface/pytorch-image-models)
 [![Docs](https://img.shields.io/badge/Docs-34개-blue?style=flat-square&logo=readthedocs&logoColor=white)](./README.md)
-[![Lines](https://img.shields.io/badge/Lines-15.2k+-informational?style=flat-square)](./README.md)
+[![Lines](https://img.shields.io/badge/Lines-16.7k+-informational?style=flat-square)](./README.md)
 [![Theorems](https://img.shields.io/badge/Theorems·Definitions-158개-success?style=flat-square)](./README.md)
 [![Reproductions](https://img.shields.io/badge/Paper_reproductions-12개-critical?style=flat-square)](./README.md)
-[![Exercises](https://img.shields.io/badge/Exercises-102개-orange?style=flat-square)](./README.md)
+[![Exercises](https://img.shields.io/badge/Exercises-98개-orange?style=flat-square)](./README.md)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square&logo=opensourceinitiative&logoColor=white)](./LICENSE)
 
 </div>
@@ -267,7 +267,7 @@ CNN에 관한 자료는 대부분 **"Conv2d, ReLU, MaxPool 쌓으면 된다"** �
 | **Rahaman 2019 Spectral Bias** | NN이 low-frequency를 먼저 학습하는 현상의 Fourier 측정 | [Ch7-03](./ch7-limits-vit/03-spectral-bias.md) |
 | **ViT Data-Prior Trade-off** | JFT-300M에서 ViT > CNN, ImageNet-1k에서는 역전 | [Ch7-04](./ch7-limits-vit/04-vit.md) |
 
-> 💡 **챕터별 문서·정리/정의 수**: Ch1(5문서, 24 정리·정의) · Ch2(5문서, 22) · Ch3(4문서, 17) · Ch4(6문서, 28) · Ch5(5문서, 20) · Ch6(5문서, 25) · Ch7(4문서, 22) — 합계 **34문서 + 158 정리·정의 + 41 엄밀한 $\square$ 증명 + 95+ PyTorch 실험**, 약 **15,200 라인** 분량.
+> 💡 **챕터별 문서·정리/정의 수**: Ch1(5문서, 30 정리·정의) · Ch2(5문서, 23) · Ch3(4문서, 12) · Ch4(6문서, 23) · Ch5(5문서, 20) · Ch6(5문서, 31) · Ch7(4문서, 19) — 합계 **34문서 + 158 정리·정의 + 38 엄밀한 $\square$ 증명 + 119개 PyTorch 실험**, 약 **16,717 라인** 분량.
 
 ---
 
@@ -395,11 +395,11 @@ def fgsm_attack(model, x, y, epsilon=0.03):
 | 10 | 📌 **핵심 정리** | 한 장으로 요약 |
 | 11 | 🤔 **생각해볼 문제 (+ 해설)** | 손 계산·증명 재구성·구현·논문 비평 문제 |
 
-> 📚 **연습문제 총 102개**: 34문서 × 문서당 3문제(기초/심화/논문 비평), 모든 문제에 `<details>` 펼침 해설 포함. Translation equivariance 손 증명부터 RF 공식 재유도, ResNet gradient 추적 재구현, ViT patch embedding 대 CNN 첫 conv 비교까지 단계적으로 심화됩니다.
+> 📚 **연습문제 총 98개**: 대부분 문서가 3문제(기초/심화/논문 비평), 일부(Ch4-05, Ch4-06, Ch6-03, Ch7-02)는 2문제. 모든 문제에 `<details>` 펼침 해설 포함. Translation equivariance 손 증명부터 RF 공식 재유도, ResNet gradient 추적 재구현, ViT patch embedding 대 CNN 첫 conv 비교까지 단계적으로 심화됩니다.
 >
 > 🧭 **푸터 네비게이션**: 각 문서 하단에 `◀ 이전 / 📚 README / 다음 ▶` 링크가 항상 제공됩니다. 챕터 경계에서도 다음 챕터 첫 문서로 자동 연결됩니다.
 >
-> ⏱️ **학습 시간 추정**: 문서당 평균 약 447줄(정의·증명·코드·연습문제 포함) 기준 **약 50분~1시간 10분**. 전체 34문서는 약 **28~40시간** 상당 (증명 재구성·실험 재현 포함 시 50시간+).
+> ⏱️ **학습 시간 추정**: 문서당 평균 약 492줄(정의·증명·코드·연습문제 포함) 기준 **약 55분~1시간 15분**. 전체 34문서는 약 **31~42시간** 상당 (증명 재구성·실험 재현 포함 시 50시간+).
 
 ---
 
