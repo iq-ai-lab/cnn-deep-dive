@@ -1,0 +1,199 @@
+# =============================================================================
+# CNN Deep Dive — .gitignore
+# =============================================================================
+
+# ── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# Distribution / Packaging
+.Python
+build/
+dist/
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+MANIFEST
+sdist/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ── Jupyter Notebook ─────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+profile_default/
+ipython_config.py
+
+# ── NumPy / PyTorch / timm cache ─────────────────────────────────────────────
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.joblib
+*.pt
+*.pth
+*.safetensors
+*.onnx
+
+# Framework caches (PyTorch, timm, torchvision)
+.torch_cache/
+.timm_cache/
+.torchvision_cache/
+
+# HuggingFace / datasets cache
+.cache/huggingface/
+datasets_cache/
+
+# ── Experiment outputs ───────────────────────────────────────────────────────
+# 생성된 이미지 파일 (각 챕터의 시각화 결과물)
+# Ch1: Toeplitz·FFT conv 비교, translation equivariance 검증,
+# Ch2: forward/backward·pooling·padding artifact·checkerboard,
+# Ch3: theoretical RF map·ERF Gaussian·dilated RF 확장,
+# Ch4: Plain vs ResNet gradient flow·DenseNet feature reuse,
+# Ch5: VGG/Inception/EfficientNet/ConvNeXt 아키텍처 다이어그램,
+# Ch6: Grad-CAM·bbox·segmentation mask·contrastive embedding,
+# Ch7: adversarial perturbation·spectral bias·ViT attention map
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.pdf
+*.gif
+*.mp4
+*.webp
+
+# 훈련 결과 / 체크포인트
+results/
+outputs/
+logs/
+checkpoints/
+runs/
+wandb/
+mlruns/
+tensorboard/
+lightning_logs/
+*.log
+*.csv
+*.h5
+*.hdf5
+*.tfevents.*
+
+# 재현 실험 산출물 (논문별)
+reproductions/lecun1998/*.npz
+reproductions/krizhevsky2012/*.pt
+reproductions/simonyan2014/*.pt
+reproductions/szegedy2014/*.pt
+reproductions/he2016/*.pt
+reproductions/huang2017/*.pt
+reproductions/cohen2016/*.pt
+reproductions/luo2016/*.npz
+reproductions/yu2016/*.pt
+reproductions/chollet2017/*.pt
+reproductions/lin2017/*.pt
+reproductions/tan2019/*.pt
+reproductions/liu2022/*.pt
+reproductions/dosovitskiy2021/*.pt
+reproductions/goodfellow2014/*.npz
+
+# 다운로드된 데이터셋 (CIFAR, MNIST, ImageNet-subset, COCO 등)
+data/
+datasets/
+imagenet/
+cifar-10-batches-py/
+cifar-100-python/
+MNIST/
+coco/
+voc/
+cityscapes/
+!data/.gitkeep
+
+# Pretrained weight cache (torchvision, timm)
+pretrained/
+weights/
+hub/
+
+# ── IDE / Editor ─────────────────────────────────────────────────────────────
+# JetBrains (PyCharm, IntelliJ)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Vim / Emacs
+*.swp
+*.swo
+*~
+\#*\#
+.\#*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+.directory
+
+# ── Documentation build ──────────────────────────────────────────────────────
+docs/_build/
+docs/generated/
+site/
+.mkdocs_cache/
+
+# ── Secrets / Credentials ────────────────────────────────────────────────────
+.env.local
+.env.*.local
+secrets.py
+credentials.json
+*.pem
+*.key
+
+# ── GPU / CUDA 캐시 ─────────────────────────────────────────────────────────
+.nv_cache/
+.nvidia/
+*.cu.o
+
+# ── Miscellaneous ────────────────────────────────────────────────────────────
+.hypothesis/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+*.mo
+*.pot
