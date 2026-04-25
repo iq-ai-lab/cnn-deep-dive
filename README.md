@@ -2,19 +2,39 @@
 
 # 🖼️ CNN Deep Dive
 
-**"`nn.Conv2d(3, 64, 3, padding=1)`을 쌓는 것과, Convolution이 왜 translation equivariance Tₐ(f * g) = (Tₐf) * g 를 가지며 이 대칭성이 MLP 대비 VC 차원을 어떻게 감소시키는지 증명할 수 있는 것은 다르다"**
+### `nn.Conv2d(3, 64, 3, padding=1)` 을 쌓는 것과,
+
+### Convolution 의 **translation equivariance**
+
+$$T_a(f * g) = (T_a f) * g$$
+
+### 가 MLP 대비 **VC 차원을 어떻게 감소시키는지** 증명할 수 있는 것은 **다르다.**
 
 <br/>
 
-> *ResNet을 쓰는 것과 — He et al. 2016의 identity shortcut y = x + F(x) 의 미분이 항등 항 I 와 잔차 항 ∂F/∂x 의 합으로 분해되어, I 항이 왜 깊은 네트워크의 gradient highway가 되어 vanishing gradient를 완화하고, plain 152-layer가 훈련 실패하는 동안 ResNet-152가 수렴하는 이유를 식으로 유도할 수 있는 것은 다르다.*
-
-> *Dilated Convolution을 사용하는 것과 — Luo et al. 2016의 Effective Receptive Field가 **Gaussian 분포**를 따르며 이론치의 약 1/√L 배에 불과하다는 것과, dilation이 선형 O(kL) 대신 지수 O(k^L) 로 RF를 키우는 이론을 설명할 수 있는 것은 다르다.*
+> *ResNet 을 **쓰는 것** 과, He et al. 2016 의 identity shortcut $y = x + F(x)$ 의 미분이*
+>
+> $$\frac{\partial y}{\partial x} = I + \frac{\partial F}{\partial x}$$
+>
+> *로 분해되어, **$I$ 항이 gradient highway** 가 되어 vanishing gradient 를 완화하고 plain 152-layer 가 훈련 실패하는 동안 ResNet-152 가 수렴하는 이유를 식으로 유도할 수 있는 것은 다르다.*
+>
+> *Dilated Convolution 을 **사용하는 것** 과, Luo et al. 2016 의 Effective Receptive Field 가 **Gaussian 분포** 를 따르며 이론치의 약 $1/\sqrt{L}$ 배에 불과하다는 것과, dilation 이*
+>
+> $$O(kL) \;\to\; O(k^L)$$
+>
+> *로 RF 를 **선형 → 지수** 로 키우는 이론을 설명할 수 있는 것은 다르다.*
 
 <br/>
 
-LeCun 1989의 역전파 CNN · LeCun 1998의 LeNet · Krizhevsky 2012 AlexNet의 GPU 혁명 · Simonyan 2014 VGG · Szegedy 2014 Inception · He 2015 ResNet · Huang 2017 DenseNet · Howard 2017 MobileNet · Cohen 2016 Group Equivariant CNN · Yu 2016 Dilated Conv · Tan 2019 EfficientNet · Liu 2022 ConvNeXt · Dosovitskiy 2021 ViT까지
+**다루는 모델 (시간순)**
 
-**"CNN의 대칭성·지역성·계층성이 왜 vision task에 최적이고 언제 그 inductive bias가 무너지는가"** 를 equivariance 증명·RF 유도·gradient flow 분석·아키텍처 재현으로 끝까지 파헤칩니다
+LeCun 1989 *역전파 CNN* · LeCun 1998 *LeNet* · Krizhevsky 2012 *AlexNet (GPU 혁명)* · Simonyan 2014 *VGG* · Szegedy 2014 *Inception* · He 2015 *ResNet* · Cohen 2016 *Group Equivariant CNN* · Yu 2016 *Dilated Conv* · Luo 2016 *Effective RF* · Howard 2017 *MobileNet* · Huang 2017 *DenseNet* · Tan 2019 *EfficientNet* · Dosovitskiy 2021 *ViT* · Liu 2022 *ConvNeXt*
+
+<br/>
+
+**핵심 질문**
+
+> CNN 의 **대칭성 · 지역성 · 계층성** 이 왜 vision task 에 최적이고, 언제 그 **inductive bias 가 무너지는가** — equivariance 증명 · RF 유도 · gradient flow 분석 · 아키텍처 재현으로 끝까지 파헤칩니다.
 
 <br/>
 
