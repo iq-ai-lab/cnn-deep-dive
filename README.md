@@ -313,31 +313,31 @@ import torch.nn as nn
 import matplotlib.pyplot as plt
 
 class PlainBlock(nn.Module):
-    def __init__(self, c):
-        super().__init__()
-        self.conv = nn.Sequential(
-            nn.Conv2d(c, c, 3, padding=1), nn.BatchNorm2d(c), nn.ReLU(),
-            nn.Conv2d(c, c, 3, padding=1), nn.BatchNorm2d(c), nn.ReLU(),
-        )
-    def forward(self, x): return self.conv(x)
+  def __init__(self, c):
+    super().__init__()
+    self.conv = nn.Sequential(
+        nn.Conv2d(c, c, 3, padding=1), nn.BatchNorm2d(c), nn.ReLU(),
+        nn.Conv2d(c, c, 3, padding=1), nn.BatchNorm2d(c), nn.ReLU(),
+    )
+  def forward(self, x): return self.conv(x)
 
 class ResBlock(nn.Module):
-    def __init__(self, c):
-        super().__init__()
-        self.conv = nn.Sequential(
-            nn.Conv2d(c, c, 3, padding=1), nn.BatchNorm2d(c), nn.ReLU(),
-            nn.Conv2d(c, c, 3, padding=1), nn.BatchNorm2d(c),
-        )
-        self.relu = nn.ReLU()
-    def forward(self, x): return self.relu(self.conv(x) + x)   # identity shortcut
+  def __init__(self, c):
+    super().__init__()
+    self.conv = nn.Sequential(
+        nn.Conv2d(c, c, 3, padding=1), nn.BatchNorm2d(c), nn.ReLU(),
+        nn.Conv2d(c, c, 3, padding=1), nn.BatchNorm2d(c),
+    )
+    self.relu = nn.ReLU()
+  def forward(self, x): return self.relu(self.conv(x) + x)   # identity shortcut
 
 def build_net(block_type, depth=20, c=16):
-    blocks = [block_type(c) for _ in range(depth)]
-    return nn.Sequential(
-        nn.Conv2d(3, c, 3, padding=1),
-        *blocks,
-        nn.AdaptiveAvgPool2d(1), nn.Flatten(), nn.Linear(c, 10),
-    )
+  blocks = [block_type(c) for _ in range(depth)]
+  return nn.Sequential(
+      nn.Conv2d(3, c, 3, padding=1),
+      *blocks,
+      nn.AdaptiveAvgPool2d(1), nn.Flatten(), nn.Linear(c, 10),
+  )
 
 # Plain-20과 ResNet-20을 CIFAR-10에서 훈련 후
 # 각 block의 gradient norm 분포 비교
@@ -346,15 +346,15 @@ def build_net(block_type, depth=20, c=16):
 
 # 대표 실험 ② — Effective Receptive Field 측정 (Ch3-02, Luo 2016 재현)
 def measure_erf(model, input_size=(3, 224, 224), n_samples=100):
-    """center pixel gradient로 input에 대한 기울기 측정 → ERF"""
-    erf = torch.zeros(input_size[1:])
-    for _ in range(n_samples):
-        x = torch.randn(1, *input_size, requires_grad=True)
-        y = model(x)
-        H, W = y.shape[-2:]
-        y[0, :, H // 2, W // 2].sum().backward()
-        erf += x.grad[0].abs().sum(0).detach()
-    return erf / n_samples
+  """center pixel gradient로 input에 대한 기울기 측정 → ERF"""
+  erf = torch.zeros(input_size[1:])
+  for _ in range(n_samples):
+    x = torch.randn(1, *input_size, requires_grad=True)
+    y = model(x)
+    H, W = y.shape[-2:]
+    y[0, :, H // 2, W // 2].sum().backward()
+    erf += x.grad[0].abs().sum(0).detach()
+  return erf / n_samples
 
 erf = measure_erf(build_net(ResBlock, depth=20))
 plt.imshow(erf.cpu(), cmap='hot'); plt.title('Effective RF (≈ Gaussian, Luo 2016)')
@@ -363,19 +363,19 @@ plt.colorbar(); plt.show()
 
 # 대표 실험 ③ — Translation Equivariance 수치 검증 (Ch1-02)
 def test_translation_equivariance(conv, x, shift=(5, 7)):
-    """T_a (conv x) == conv (T_a x) 를 수치로 확인"""
-    y1 = conv(x)                             # conv then shift
-    y1_shifted = torch.roll(y1, shifts=shift, dims=(-2, -1))
-    x_shifted = torch.roll(x, shifts=shift, dims=(-2, -1))
-    y2 = conv(x_shifted)                     # shift then conv
-    return (y1_shifted - y2).abs().max().item()  # ≈ 0 (boundary 제외)
+  """T_a (conv x) == conv (T_a x) 를 수치로 확인"""
+  y1 = conv(x)                             # conv then shift
+  y1_shifted = torch.roll(y1, shifts=shift, dims=(-2, -1))
+  x_shifted = torch.roll(x, shifts=shift, dims=(-2, -1))
+  y2 = conv(x_shifted)                     # shift then conv
+  return (y1_shifted - y2).abs().max().item()  # ≈ 0 (boundary 제외)
 
 # 대표 실험 ④ — Reddi-free FGSM adversarial (Ch7-02, Goodfellow 2014)
 def fgsm_attack(model, x, y, epsilon=0.03):
-    x = x.clone().detach().requires_grad_(True)
-    loss = nn.functional.cross_entropy(model(x), y)
-    loss.backward()
-    return (x + epsilon * x.grad.sign()).clamp(0, 1)
+  x = x.clone().detach().requires_grad_(True)
+  loss = nn.functional.cross_entropy(model(x), y)
+  loss.backward()
+  return (x + epsilon * x.grad.sign()).clamp(0, 1)
 # → pretrained ResNet-50에 적용해 ε=8/255 에서 분류 정확도 75% → 6% 급락
 ```
 
